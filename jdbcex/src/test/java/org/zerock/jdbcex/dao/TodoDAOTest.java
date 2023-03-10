@@ -2,7 +2,7 @@ package org.zerock.jdbcex.dao;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.zerock.jdbcex.domain.TodoVo;
+import org.zerock.jdbcex.domain.TodoVO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,18 +27,18 @@ class TodoDAOTest {
 
     @Test
     public void insertTest() throws Exception{
-        TodoVo todoVo = TodoVo.builder()
+        TodoVO todoVO = TodoVO.builder()
                 .title("Sample Title...")
                 .dueDate(LocalDate.now())
                 .build();
 
-        todoDAO.insert(todoVo);
+        todoDAO.insert(todoVO);
     }
 
     @Test
     public void selectAllTest() throws Exception{
-        List<TodoVo> todoVos = todoDAO.selectAll();
-        todoVos.forEach(System.out::println);
+        List<TodoVO> todoVOS = todoDAO.selectAll();
+        todoVOS.forEach(System.out::println);
     }
 
     @Test
@@ -49,13 +49,14 @@ class TodoDAOTest {
 
     @Test
     public void updateOneTest() throws Exception{
-        TodoVo todoVo = TodoVo.builder()
+
+        TodoVO todoVO = TodoVO.builder()
                 .tno(1L)
                 .title("Sample Title...")
                 .dueDate(LocalDate.now())
                 .finished(true)
                 .build();
 
-        todoDAO.updateOne(todoVo);
+        todoDAO.updateOne(todoVO);
     }
 }

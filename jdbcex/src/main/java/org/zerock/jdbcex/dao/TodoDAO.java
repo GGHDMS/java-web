@@ -1,7 +1,7 @@
 package org.zerock.jdbcex.dao;
 
 import lombok.Cleanup;
-import org.zerock.jdbcex.domain.TodoVo;
+import org.zerock.jdbcex.domain.TodoVO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class TodoDAO {
         return now;
     }
 
-    public void insert(TodoVo vo) throws SQLException {
+    public void insert(TodoVO vo) throws SQLException {
         String sql = "insert into tbl_todo (title, dueDate, finished) values (?, ?, ?)";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -52,28 +52,28 @@ public class TodoDAO {
         preparedStatement.executeUpdate(); //DML 실행
     }
 
-    public List<TodoVo> selectAll() throws SQLException {
+    public List<TodoVO> selectAll() throws SQLException {
         String sql = "select * from tbl_todo";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
 
-        List<TodoVo> todoVos = new ArrayList<>();
+        List<TodoVO> todoVOs = new ArrayList<>();
 
         while (resultSet.next()) {
-            TodoVo vo = TodoVo.builder()
+            TodoVO vo = TodoVO.builder()
                     .tno(resultSet.getLong("tno"))
                     .title(resultSet.getString("title"))
                     .dueDate(resultSet.getDate("dueDate").toLocalDate())
                     .finished(resultSet.getBoolean("finished"))
                     .build();
-            todoVos.add(vo);
+            todoVOs.add(vo);
         }
-        return todoVos;
+        return todoVOs;
     }
 
-    public TodoVo selectOne(Long tno) throws SQLException {
+    public TodoVO selectOne(Long tno) throws SQLException {
         String sql = "select * from tbl_todo where tno = ?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -85,7 +85,7 @@ public class TodoDAO {
 
         resultSet.next();
 
-        return TodoVo.builder()
+        return TodoVO.builder()
                 .tno(resultSet.getLong("tno"))
                 .title(resultSet.getString("title"))
                 .dueDate(resultSet.getDate("dueDate").toLocalDate())
@@ -94,7 +94,7 @@ public class TodoDAO {
     }
 
     public void deleteOne(Long tno) throws SQLException {
-        String sql = "delete * from tbl_todo where tno = ?";
+        String sql = "delete from tbl_todo where tno = ?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -104,7 +104,7 @@ public class TodoDAO {
         preparedStatement.executeUpdate();
     }
 
-    public void updateOne(TodoVo vo) throws SQLException {
+    public void updateOne(TodoVO vo) throws SQLException {
         String sql = "update tbl_todo set title = ?, dueDate = ?, finished = ? where tno = ?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
