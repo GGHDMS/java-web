@@ -28,6 +28,11 @@ dependencies {
 
     implementation('org.mariadb.jdbc:mariadb-java-client:3.1.0')
     implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.0'
+    implementation 'org.modelmapper:modelmapper:3.0.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.2'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
+    implementation group: 'jstl', name: 'jstl', version: '1.2'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
