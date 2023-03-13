@@ -27,4 +27,12 @@ public enum MemberService {
         return modelMapper.map(vo, MemberDTO.class);
     }
 
+    public void updateUUID(String mid, String uuid) throws SQLException {
+        dao.updateUUID(mid, uuid);
+    }
+
+    public MemberDTO getByUUID(String uuid) throws SQLException {
+        return modelMapper.map(dao.selectUUID(uuid), MemberDTO.class);
+    }
+
 }
